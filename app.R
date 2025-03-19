@@ -20,11 +20,11 @@ ui <-
                     card(card_header("Plotly - Sales Trends"),
                          full_screen = T,
                          card_body(plotlyOutput("plotly"))
-                    )
-                    # card(card_header("Highcharter - Top Products"),
-                    #      full_screen = T,
-                    #      card_body(highchartOutput("highchart"))
-                    #      ),
+                    ),
+                    card(card_header("Highcharter - Top Products"),
+                         full_screen = T,
+                         card_body(highchartOutput("highchart"))
+                         ),
                     # card(card_header("Leaflet - Sales by Country"),
                     #      full_screen = T,
                     #      card_body(leafletOutput("leaflet"))
@@ -72,14 +72,23 @@ server <- function(input, output) {
                     y = ~total_revenue,
                     type="scatter",
                     mode="lines") |>
-            layout(title = "Revenue by InvoiceDate")
+            layout(title = "Revenue by InvoiceDate",
+                   xaxis = list(title = "Months"),
+                   yaxis = list (title = "Revenues"))
     })
     
-    
-    
-    # output$highchart <- renderHighchart({
-    #     
-    # })
+    output$highchart <- renderHighchart({
+        data |>
+            group_by(StockCode) |>
+            summarize(total_revenue = sum(Revenue)) |>
+            arrange(desc(total_revenue)) |>
+            slice_head(n=10) |>
+            hchart("column", hcaes(x = StockCode, y = total_revenue),
+                   color = "#0198f9", name = "Top 10 products") |>
+            hc_title(text = "Top 10  products") |>
+            hc_xAxis(title = list(text = "Products")) |>
+            hc_yAxis(title = list(text = "Revenues"))
+    })
     
     # output$leaflet <- renderLeaflet({
     #     # browser()
