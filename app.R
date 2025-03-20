@@ -141,7 +141,7 @@ server <- function(input, output) {
         leaflet() |>
             addTiles() |> 
             setView(49.48,6.07, zoom = 2) |>
-            addMarkers(data=data_map_filtered())
+            addMarkers(data=data_map_filtered(), popup=paste(data_map_filtered()$Country,"(revenues):",data_map_filtered()$total_revenue))
         })
     
     # "sales transactions"
