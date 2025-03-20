@@ -17,7 +17,7 @@ ui <-
                     inputId = "country",
                     label = "Choose country",
                     choices = sort(unique(data$Country)),
-                    selected = "Brazil",
+                    selected = "Belgium",
                     multiple = TRUE
                 ),
                 sliderInput(
@@ -78,14 +78,14 @@ ui <-
 
 # Define server logic -----------------------------------------------------
 server <- function(input, output) {
-    # data_filtered <- reactive({
-    #     data |>
-    #         dplyr::filter(Year == input$year) |>
-    #         dplyr::filter(Symbol == input$ticker)
-    # })
+    data_filtered <- reactive({
+        data |>
+            dplyr::filter(InvoiceDate >= input$period[1] & InvoiceDate <= input$period[2]) |>
+            dplyr::filter(Country == input$country)
+            })
     
     output$plotly <- renderPlotly({
-        data |>
+        data_filtered() |>
             mutate(month = lubridate::month(InvoiceDate)) |>
             group_by(month) |>
             summarize(total_revenue = sum(Revenue)) |>
@@ -98,8 +98,9 @@ server <- function(input, output) {
                    yaxis = list (title = "Revenues"))
     })
     
+    #to check error when the filter returns no results
     output$highchart <- renderHighchart({
-        data |>
+        data_filtered() |>
             group_by(StockCode) |>
             summarize(total_revenue = sum(Revenue)) |>
             arrange(desc(total_revenue)) |>
@@ -119,21 +120,19 @@ server <- function(input, output) {
     #       "Total sales per country"
     # })
     
-    output$dt <- renderDataTable({
-        data |>
+    # "sales transactions"
+        output$dt <- renderDataTable({
+        data_filtered() |>
             DT::datatable(class = 'cell-border stripe',
                           rownames = FALSE,
                           filter = 'top',
                           options = list(pageLength = 5))
-        "sales transactions"
-        
     })
-    
+
+    # "top customers"    
     output$react <- renderReactable({
-        data |>
+        data_filtered() |>
             reactable::reactable()
-        
-        "top customers"
     })
 }
 # Run the application -----------------------------------------------------
