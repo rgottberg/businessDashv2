@@ -1,7 +1,20 @@
 # load clean data
 data <- rio::import("data/cleaned_data.csv")
 
-# Define UI ---------------------------------------------------------------
+data_leaflet <- rio::import("data/world_country_and_usa_states_latitude_and_longitude_values.csv")
+
+data_leaflet2 <- data_leaflet |>
+    dplyr::select(country,latitude,longitude)
+
+data_map <- data |>
+    group_by(Country) |>
+    summarize(total_revenue = sum(Revenue)) |>
+    arrange(Country) |>
+    left_join(data_leaflet2, by = join_by(Country == country))
+
+
+
+# Define UI --------------------Country# Define UI ---------------------------------------------------------------
 ui <- 
     page_fluid(
         # app title ----
@@ -44,10 +57,17 @@ ui <-
                          card_body(shinycssloaders::withSpinner(highchartOutput("highchart"),
                                                                 type = 7))
                          ),
-                    # card(card_header("Leaflet - Sales by Country"),
-                    #      full_screen = T,
-                    #      card_body(leafletOutput("leaflet"))
-                    #      ),
+                )
+            ),
+            nav_panel(
+                title = "Leaflet",
+                layout_columns(
+                    col_widths = c(12),
+                    card(card_header("Leaflet - Sales by Country"),
+                         full_screen = T,
+                         card_body(shinycssloaders::withSpinner(leafletOutput("leaflet"),
+                                                                type = 7))
+                    ),
                 )
             ),
             nav_panel(
@@ -83,6 +103,10 @@ server <- function(input, output) {
             dplyr::filter(InvoiceDate >= input$period[1] & InvoiceDate <= input$period[2]) |>
             dplyr::filter(Country == input$country)
             })
+    data_map_filtered <- reactive({
+        data_map |>
+            dplyr::filter(Country == input$country)
+    })
     
     output$plotly <- renderPlotly({
         data_filtered() |>
@@ -111,14 +135,14 @@ server <- function(input, output) {
             hc_xAxis(title = list(text = "Product")) |>
             hc_yAxis(title = list(text = "Quantity"))
     })
-    
-    # output$leaflet <- renderLeaflet({
-    #     # browser()
-    #     data2 |>
-    #         select(Country,Revenue)
-    #         # summarize()
-    #       "Total sales per country"
-    # })
+
+    "Total sales per country"
+    output$leaflet <- renderLeaflet({
+        leaflet() |>
+            addTiles() |> 
+            setView(49.48,6.07, zoom = 2) |>
+            addMarkers(data=data_map_filtered())
+        })
     
     # "sales transactions"
         output$dt <- renderDataTable({
