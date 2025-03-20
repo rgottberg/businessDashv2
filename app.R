@@ -19,11 +19,13 @@ ui <-
                     col_widths = c(6,6),
                     card(card_header("Plotly - Sales Trends"),
                          full_screen = T,
-                         card_body(plotlyOutput("plotly"))
+                         card_body(shinycssloaders::withSpinner(plotlyOutput("plotly"),
+                                                                type = 7))
                     ),
                     card(card_header("Highcharter - Top Products"),
                          full_screen = T,
-                         card_body(highchartOutput("highchart"))
+                         card_body(shinycssloaders::withSpinner(highchartOutput("highchart"),
+                                                                type = 7))
                          ),
                     # card(card_header("Leaflet - Sales by Country"),
                     #      full_screen = T,
@@ -38,7 +40,8 @@ ui <-
                     card(
                         card_header("DT - Interactive Transaction Table"),
                         full_screen = T,
-                        card_body(dataTableOutput("dt"))
+                        card_body(shinycssloaders::withSpinner(dataTableOutput("dt"),
+                                                               type = 7))
                     )
                 )
             ),
@@ -48,7 +51,8 @@ ui <-
                     col_widths = c(12),
                     card(card_header("Reactable - Customer Insights"),
                          full_screen = T,
-                         card_body(reactableOutput("react"))
+                         card_body(shinycssloaders::withSpinner(reactableOutput("react"),
+                                                                type = 7))
                     )
                 )
             )
@@ -84,7 +88,7 @@ server <- function(input, output) {
             arrange(desc(total_revenue)) |>
             slice_head(n=10) |>
             hchart("column", hcaes(x = StockCode, y = total_revenue),
-                   color = "#0198f9", name = "Top 10 products") |>
+                   color = "#0198f9", name = "Quantity sold per product") |>
             hc_title(text = "Top 10  products") |>
             hc_xAxis(title = list(text = "Products")) |>
             hc_yAxis(title = list(text = "Revenues"))
@@ -95,6 +99,7 @@ server <- function(input, output) {
     #     data2 |>
     #         select(Country,Revenue)
     #         # summarize()
+    #       "Total sales per country"
     # })
     
     output$dt <- renderDataTable({
@@ -103,11 +108,15 @@ server <- function(input, output) {
                           rownames = FALSE,
                           filter = 'top',
                           options = list(pageLength = 5))
+        "sales transactions"
+        
     })
     
     output$react <- renderReactable({
         data |>
             reactable::reactable()
+        
+        "top customers"
     })
 }
 # Run the application -----------------------------------------------------
