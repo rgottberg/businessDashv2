@@ -314,6 +314,7 @@
       "NeedsCompilation": "yes",
       "Author": "Joshua Ulrich [cre, aut], Ethan B. Smith [ctb]",
       "Maintainer": "Joshua Ulrich <josh.m.ulrich@gmail.com>",
+
       "Repository": "CRAN",
       "Encoding": "UTF-8"
     },
@@ -4363,6 +4364,36 @@
       "Maintainer": "Jennifer Bryan <jenny@posit.co>",
       "Repository": "CRAN"
     },
+    "waiter": {
+      "Package": "waiter",
+      "Version": "0.2.5",
+      "Source": "Repository",
+      "Title": "Loading Screen for 'Shiny'",
+      "Date": "2022-01-02",
+      "Authors@R": "c( person(given = \"John\", family = \"Coene\", role = c(\"aut\", \"cre\"), email = \"jcoenep@gmail.com\"), person(given = \"Jinhwan\", family = \"Kim\", role = \"ctb\", email = 'hwanistic@gmail.com'), person(given = \"Victor\", family = \"Granda\", role = c(\"ctb\"), email = \"victorgrandagarcia@gmail.com\", comment = c(ORCID = \"0000-0002-0469-1991\")))",
+      "Description": "Full screen and partial loading screens for 'Shiny' with spinners, progress bars, and notifications.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://waiter.john-coene.com/, https://github.com/JohnCoene/waiter",
+      "BugReports": "https://github.com/JohnCoene/waiter/issues",
+      "Encoding": "UTF-8",
+      "Imports": [
+        "R6",
+        "shiny",
+        "htmltools"
+      ],
+      "RoxygenNote": "7.1.2",
+      "Suggests": [
+        "httr",
+        "knitr",
+        "packer",
+        "rmarkdown"
+      ],
+      "VignetteBuilder": "knitr",
+      "NeedsCompilation": "no",
+      "Author": "John Coene [aut, cre], Jinhwan Kim [ctb], Victor Granda [ctb] (<https://orcid.org/0000-0002-0469-1991>)",
+      "Maintainer": "John Coene <jcoenep@gmail.com>",
+      "Repository": "RSPM"
+    },
     "withr": {
       "Package": "withr",
       "Version": "3.0.2",
@@ -4507,6 +4538,41 @@
       "NeedsCompilation": "no",
       "Author": "David B. Dahl [aut], David Scott [aut, cre], Charles Roosen [aut], Arni Magnusson [aut], Jonathan Swinton [aut], Ajay Shah [ctb], Arne Henningsen [ctb], Benno Puetz [ctb], Bernhard Pfaff [ctb], Claudio Agostinelli [ctb], Claudius Loehnert [ctb], David Mitchell [ctb], David Whiting [ctb], Fernando da Rosa [ctb], Guido Gay [ctb], Guido Schulz [ctb], Ian Fellows [ctb], Jeff Laake [ctb], John Walker [ctb], Jun Yan [ctb], Liviu Andronic [ctb], Markus Loecher [ctb], Martin Gubri [ctb], Matthieu Stigler [ctb], Robert Castelo [ctb], Seth Falcon [ctb], Stefan Edwards [ctb], Sven Garbade [ctb], Uwe Ligges [ctb]",
       "Encoding": "UTF-8"
+    },
+    "xts": {
+      "Package": "xts",
+      "Version": "0.14.1",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "eXtensible Time Series",
+      "Authors@R": "c( person(given=c(\"Jeffrey\",\"A.\"), family=\"Ryan\", role=c(\"aut\",\"cph\")), person(given=c(\"Joshua\",\"M.\"), family=\"Ulrich\", role=c(\"cre\",\"aut\"), email=\"josh.m.ulrich@gmail.com\"), person(given=\"Ross\", family=\"Bennett\", role=\"ctb\"), person(given=\"Corwin\", family=\"Joy\", role=\"ctb\") )",
+      "Depends": [
+        "R (>= 3.6.0)",
+        "zoo (>= 1.7-12)"
+      ],
+      "Imports": [
+        "methods"
+      ],
+      "LinkingTo": [
+        "zoo"
+      ],
+      "Suggests": [
+        "timeSeries",
+        "timeDate",
+        "tseries",
+        "chron",
+        "tinytest"
+      ],
+      "LazyLoad": "yes",
+      "Description": "Provide for uniform handling of R's different time-based data classes by extending zoo, maximizing native format information preservation and allowing for user level customization and extension, while simplifying cross-class interoperability.",
+      "License": "GPL (>= 2)",
+      "URL": "https://joshuaulrich.github.io/xts/, https://github.com/joshuaulrich/xts",
+      "BugReports": "https://github.com/joshuaulrich/xts/issues",
+      "Encoding": "UTF-8",
+      "NeedsCompilation": "yes",
+      "Author": "Jeffrey A. Ryan [aut, cph], Joshua M. Ulrich [cre, aut], Ross Bennett [ctb], Corwin Joy [ctb]",
+      "Maintainer": "Joshua M. Ulrich <josh.m.ulrich@gmail.com>",
+      "Repository": "CRAN"
     },
     "xts": {
       "Package": "xts",
