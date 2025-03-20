@@ -22,6 +22,9 @@ retail_data <- data2 |>
     dplyr::filter(Price > 0) |>  # Remove negative prices
     dplyr::mutate(Revenue = Quantity * Price)  # Calculate revenue
 
+## streamline timestamps
+retail_data$InvoiceDate <- lubridate::as_date(retail_data$InvoiceDate)
+
 # write data to file
 readr::write_csv(
     retail_data,
