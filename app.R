@@ -17,6 +17,8 @@ data_map <- data |>
 # Define UI --------------------Country# Define UI ---------------------------------------------------------------
 ui <- 
     page_fluid(
+        useWaiter(),
+        waiterPreloader(),
         # app title ----
         titlePanel("Business-Oriented Dashboard"),
         # theme
@@ -89,6 +91,8 @@ ui <-
 
 # Define server logic -----------------------------------------------------
 server <- function(input, output) {
+    Sys.sleep(3)
+
     data_filtered <- reactive({
         data |>
             dplyr::filter(InvoiceDate >= input$period[1] & InvoiceDate <= input$period[2]) |>
