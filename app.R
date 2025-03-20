@@ -45,8 +45,8 @@ ui <-
             ),
             nav_panel(
                 title = "Visualizations",
-                layout_columns(
-                    col_widths = c(6,6),
+                layout_column_wrap(
+                    width = "400px",
                     card(card_header("Plotly - Sales Trends"),
                          full_screen = T,
                          card_body(shinycssloaders::withSpinner(plotlyOutput("plotly"),
@@ -61,36 +61,27 @@ ui <-
             ),
             nav_panel(
                 title = "Leaflet",
-                layout_columns(
-                    col_widths = c(12),
-                    card(card_header("Leaflet - Sales by Country"),
-                         full_screen = T,
-                         card_body(shinycssloaders::withSpinner(leafletOutput("leaflet"),
-                                                                type = 7))
-                    ),
-                )
+                card(card_header("Leaflet - Sales by Country"),
+                     full_screen = T,
+                     card_body(shinycssloaders::withSpinner(leafletOutput("leaflet"),
+                                                            type = 7))
+                ),
             ),
             nav_panel(
                 title = "DT",
-                layout_columns(
-                    col_widths = c(12),
-                    card(
-                        card_header("DT - Interactive Transaction Table"),
-                        full_screen = T,
-                        card_body(shinycssloaders::withSpinner(dataTableOutput("dt"),
-                                                               type = 7))
-                    )
+                card(
+                    card_header("DT - Interactive Transaction Table"),
+                    full_screen = T,
+                    card_body(shinycssloaders::withSpinner(dataTableOutput("dt"),
+                                                           type = 7))
                 )
             ),
             nav_panel(
                 title = "Reactable",
-                layout_columns(
-                    col_widths = c(12),
-                    card(card_header("Reactable - Customer Insights"),
-                         full_screen = T,
-                         card_body(shinycssloaders::withSpinner(reactableOutput("react"),
-                                                                type = 7))
-                    )
+                card(card_header("Reactable - Customer Insights"),
+                     full_screen = T,
+                     card_body(shinycssloaders::withSpinner(reactableOutput("react"),
+                                                            type = 7))
                 )
             )
         )
