@@ -1,20 +1,3 @@
-# install libraries
-if(!require("shiny")) install.packages("shiny")
-if(!require("bslib")) install.packages("bslib")
-if(!require("shinythemes")) install.packages("shinythemes")
-if(!require("ggplot2")) install.packages("ggplot2")
-if(!require("plotly")) install.packages("plotly")
-if(!require("highcharter")) install.packages("highcharter")
-# if(!require("leaflet")) install.packages("leaflet")
-if(!require("readr")) install.packages("readr")
-if(!require("rio")) install.packages("rio")
-if(!require("tibble")) install.packages("tibble")
-if(!require("dplyr")) install.packages("dplyr")
-if(!require("tidyr")) install.packages("tidyr")
-if(!require("DT")) install.packages("DT")
-if(!require("reactable")) install.packages("reactable")
-if(!require("lubridate")) install.packages("lubridate")
-
 # load libraries
 library(shiny)
 library(bslib)
