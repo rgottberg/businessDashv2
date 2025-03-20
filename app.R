@@ -12,7 +12,24 @@ ui <-
             version = "5"),
         # sidebar layout with input and output definitions ----
         navset_card_pill(
-            sidebar = sidebar(),
+            sidebar = sidebar(
+                selectInput(
+                    inputId = "country",
+                    label = "Choose country",
+                    choices = sort(unique(data$Country)),
+                    selected = "Brazil",
+                    multiple = TRUE
+                ),
+                sliderInput(
+                    inputId = "period",
+                    label = "Choose period",
+                    min = min(data$InvoiceDate),
+                    max = max(data$InvoiceDate),
+                    value = c(max(data$InvoiceDate) %m-% months(6),
+                              max(data$InvoiceDate)),
+                    step = 30
+                )
+            ),
             nav_panel(
                 title = "Visualizations",
                 layout_columns(
