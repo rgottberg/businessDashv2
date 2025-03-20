@@ -102,14 +102,14 @@ server <- function(input, output) {
     output$highchart <- renderHighchart({
         data_filtered() |>
             group_by(StockCode) |>
-            summarize(total_revenue = sum(Revenue)) |>
-            arrange(desc(total_revenue)) |>
+            summarize(total_quantity = sum(Quantity)) |>
+            arrange(desc(total_quantity)) |>
             slice_head(n=10) |>
-            hchart("column", hcaes(x = StockCode, y = total_revenue),
+            hchart("column", hcaes(x = StockCode, y = total_quantity),
                    color = "#0198f9", name = "Quantity sold per product") |>
             hc_title(text = "Top 10  products") |>
-            hc_xAxis(title = list(text = "Products")) |>
-            hc_yAxis(title = list(text = "Revenues"))
+            hc_xAxis(title = list(text = "Product")) |>
+            hc_yAxis(title = list(text = "Quantity"))
     })
     
     # output$leaflet <- renderLeaflet({
