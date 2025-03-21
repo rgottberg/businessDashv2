@@ -28,12 +28,15 @@ ui <-
         # sidebar layout with input and output definitions ----
         navset_card_pill(
             sidebar = sidebar(
-                selectInput(
+                pickerInput(
                     inputId = "country",
                     label = "Choose country",
                     choices = sort(unique(data$Country)),
+                    multiple = TRUE,
                     selected = "Belgium",
-                    multiple = TRUE
+                    options = list(
+                        `actions-box` = TRUE
+                    )
                 ),
                 dateRangeInput(
                     inputId = "period",
