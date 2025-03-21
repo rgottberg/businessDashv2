@@ -43,7 +43,13 @@ ui <-
                     value = c(max(data$InvoiceDate) %m-% months(6),
                               max(data$InvoiceDate)),
                     step = 30
-                )
+                ),
+                selectInput(
+                    inputId = "format",
+                    label = "Select File Format",
+                    choices = sort(c("CSV"="csv","Excel"="xlsx"))
+                ),
+                downloadButton("downloadData", label = "Download", class = NULL)
             ),
             nav_panel(
                 title = "Visualizations",
@@ -91,8 +97,7 @@ ui <-
 
 # Define server logic -----------------------------------------------------
 server <- function(input, output) {
-    Sys.sleep(3)
-
+    shinyalert("Welcome!", "Please explore the dashboard")
     data_filtered <- reactive({
         data |>
             dplyr::filter(InvoiceDate >= input$period[1] & InvoiceDate <= input$period[2]) |>
@@ -102,6 +107,14 @@ server <- function(input, output) {
         data_map |>
             dplyr::filter(Country == input$country)
     })
+    output$downloadData <- downloadHandler(
+        filename = function() {
+            paste("data","_", Sys.Date(),".", input$format, sep='')
+        },
+        content = function(con) {
+            rio::export(data_filtered(), con)
+        }
+    )
     
     output$plotly <- renderPlotly({
         data_filtered() |>
