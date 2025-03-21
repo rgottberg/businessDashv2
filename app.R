@@ -28,21 +28,23 @@ ui <-
         # sidebar layout with input and output definitions ----
         navset_card_pill(
             sidebar = sidebar(
-                selectInput(
+                pickerInput(
                     inputId = "country",
                     label = "Choose country",
                     choices = sort(unique(data$Country)),
+                    multiple = TRUE,
                     selected = "Belgium",
-                    multiple = TRUE
+                    options = list(
+                        `actions-box` = TRUE
+                    )
                 ),
-                sliderInput(
+                dateRangeInput(
                     inputId = "period",
                     label = "Choose period",
                     min = min(data$InvoiceDate),
                     max = max(data$InvoiceDate),
-                    value = c(max(data$InvoiceDate) %m-% months(6),
-                              max(data$InvoiceDate)),
-                    step = 30
+                    start=c(max(data$InvoiceDate) %m-% months(6)),
+                    end=max(data$InvoiceDate)
                 ),
                 selectInput(
                     inputId = "format",
