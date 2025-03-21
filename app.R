@@ -35,14 +35,13 @@ ui <-
                     selected = "Belgium",
                     multiple = TRUE
                 ),
-                sliderInput(
+                dateRangeInput(
                     inputId = "period",
                     label = "Choose period",
                     min = min(data$InvoiceDate),
                     max = max(data$InvoiceDate),
-                    value = c(max(data$InvoiceDate) %m-% months(6),
-                              max(data$InvoiceDate)),
-                    step = 30
+                    start=c(max(data$InvoiceDate) %m-% months(6)),
+                    end=max(data$InvoiceDate)
                 ),
                 selectInput(
                     inputId = "format",
